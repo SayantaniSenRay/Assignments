@@ -1,0 +1,154 @@
+/*Question 1.
+
+Create a function to determine if a word or phrase is a palindrome. The function will take as input a string and return a boolean that is true if the word or phrase is a palindrome and false otherwise. Examples of palindromes are:
+
+1. 1881
+
+2. Dad
+
+3. Step on no pets*/
+
+
+bool CheckifPalindrome(int len, const char* phrase)
+{
+	//iterate till the half of the string is reached
+    for(int indx=0;indx<len/2;indx++)
+    {
+        if(phrase[indx] != phrase[len-indx-1])	//check if the first char is equal to the last char.
+        {
+            return false;	//If not the string is not palindrome and so we need not to check further
+        }
+    }
+    return true; //the string is a palindrome
+}
+
+int main()
+{
+    char str[] = "Step on no pets";
+    int sz = sizeof(str) - 1;	//removing the '\0'
+    
+    bool ret=CheckifPalindrome(sz,str);
+    
+    if(ret == true)
+    {
+        cout << "String is a Palindrome";
+    }
+    else
+    {
+        cout << "String is not a Palindrome";
+    }
+
+    return 0;
+}
+
+/*
+Question 3.
+
+The given table 'students' contains the total marks of a student in a class. The teacher of the class wants to assign grades to the students with the following logic:
+
+·         Greater > 90 | A+
+
+·         Greater > 70 | A
+
+·         Greater > 50 | B
+
+·         Greater >= 40 | C
+
+·         Less than 40 | Fail
+
+Write an SQL query to achieve the same. Return ID, name, marks, grade for each student.
+*/
+____________________________________________________________________________________________________________________
+
+CREATE TABLE Students
+(
+ID int NOT NULL,
+Name varchar(255) NOT NULL,
+Marks varchar(255), 
+PRIMARY KEY(ID)
+);
+
+Insert into Students (ID, Name, Marks) values (1, "Matt", "44");
+Insert into Students (ID, Name, Marks) values (2, "John", "57");
+Insert into Students (ID, Name, Marks) values (3, "Lucas", "78");
+
+----------------------------------------------------------------------------------------
+ID	Name	Marks
+1	Matt	44
+2	John	57
+3	Lucas	78
+--------------------------------------------------------------------------------
+SELECT ID, Name, Marks,
+CASE WHEN Marks > 90 THEN 'A+'
+WHEN Marks > 70 THEN 'A'
+WHEN Marks > 50 THEN 'B'
+WHEN Marks >= 40 THEN 'C'
+ELSE 'Fail'
+END AS Grade
+FROM Students;
+--------------------------------------------------------------------------------------------------
+
+
+ID	Name	Marks	Grade
+1	Matt	44	C
+2	John	57	B
+3	Lucas	78	A
+
+____________________________________________________________________________________________________________________
+/*
+Question 2.
+
+A retail company maintains the data of its customers in the CUSTOMER table. Write a query to print the IDs and the NAMEs of the customers, sorted by CUSTOMER.NAME in descending order. If two or more customers have the same CUSTOMER.NAME, then sort these by CUSTOMER.ID in ascending order.
+*/
+
+
+CREATE TABLE Customer
+(
+ID int NOT NULL,
+Name varchar(100) NOT NULL,
+Country varchar(255), 
+Credits int,
+PRIMARY KEY(ID)
+);
+
+Insert into Customer (ID, Name, Country, Credits) values (1, "Frances White", "USA", 200350);
+Insert into Customer (ID, Name, Country, Credits) values (2, "Carolyn Bradley","UK", 15354);
+Insert into Customer (ID, Name, Country, Credits) values (3, "Annie Fernandez","France", 359200);
+Insert into Customer (ID, Name, Country, Credits) values (4, "Ruth Hanson","Albania", 1060);
+Insert into Customer (ID, Name, Country, Credits) values (5, "Paula Fuller", "USA", 14789);
+Insert into Customer (ID, Name, Country, Credits) values (6, "Bonnie Johnston","China", 100243);
+Insert into Customer (ID, Name, Country, Credits) values (7, "Ruth Gutierrez","USA", 998999);
+Insert into Customer (ID, Name, Country, Credits) values (8, "Ernest Thomas","Canada", 500500);
+Insert into Customer (ID, Name, Country, Credits) values (9, "Joe Garza","UK", 18782);
+Insert into Customer (ID, Name, Country, Credits) values (10, "Anne Harris","USA", 158367);
+
+____________________________________________________________________________________________________________________
+
+
+ID	Name	Country	Credits
+1	Frances White	USA	200350
+2	Carolyn Bradley	UK	15354
+3	Annie Fernandez	France	359200
+4	Ruth Hanson	Albania	1060
+5	Paula Fuller	USA	14789
+6	Bonnie Johnston	China	100243
+7	Ruth Gutierrez	USA	998999
+8	Ernest Thomas	Canada	500500
+9	Joe Garza	UK	18782
+10	Anne Harris	USA	158367
+
+
+SELECT * FROM Customer
+ORDER BY Name DESC, ID ASC;
+
+ID	Name	Country	Credits
+4	Ruth Hanson	Albania	1060
+7	Ruth Gutierrez	USA	998999
+5	Paula Fuller	USA	14789
+9	Joe Garza	UK	18782
+1	Frances White	USA	200350
+8	Ernest Thomas	Canada	500500
+2	Carolyn Bradley	UK	15354
+6	Bonnie Johnston	China	100243
+3	Annie Fernandez	France	359200
+10	Anne Harris	USA	158367
